@@ -8,7 +8,14 @@ class ListExercise:
         :param input_list: Исходный список
         :return: Список с замененными элементами
         """
-        pass
+        replaced_list = []
+
+        for i in input_list:
+            if i >= 0:
+                replaced_list.append(max(input_list))
+            else:
+                replaced_list.append(i)
+        return replaced_list
 
     @staticmethod
     def search(input_list: list[int], query: int) -> int:
