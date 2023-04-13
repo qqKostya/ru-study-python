@@ -13,16 +13,29 @@ class MapExercise:
         Ключи словаря: name, rating_kinopoisk, rating_imdb, genres, year, access_level, country
         :return: Средний рейтинг фильмов у которых две или больше стран
         """
-        
         films = 0
         rating_kinopoisk_all = 0
-        for movie in list_of_movies:
-            if len(movie["country"].split(",")) >= 2:
-                if movie["rating_kinopoisk"] != "":
-                    if float(movie["rating_kinopoisk"]) != 0.0:
-                        films += 1
-                        rating_kinopoisk_all += float(movie["rating_kinopoisk"]) 
-        return rating_kinopoisk_all / films
+
+        ratings = list(
+            map(
+                lambda movie: (
+                    float(movie["rating_kinopoisk"])
+                    if len(movie["country"].split(",")) >= 2
+                    and movie["rating_kinopoisk"] != ""
+                    and float(movie["rating_kinopoisk"]) != 0.0
+                    else None
+                ),
+                list_of_movies,
+            )
+        )
+
+        for rating in ratings:
+            if rating is not None:
+                films += 1
+                rating_kinopoisk_all += rating
+
+        return rating_kinopoisk_all / films if films > 0 else 0.0
+
 
     @staticmethod
     def chars_count(list_of_movies: list[dict], rating: Union[float, int]) -> int:
