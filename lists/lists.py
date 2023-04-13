@@ -27,4 +27,10 @@ class ListExercise:
         :param query: Искомый элемент
         :return: Номер элемента
         """
-        pass
+        i = 0
+        while i < len(input_list) and input_list[i] != query:
+            i += 1
+        if i < len(input_list):
+            return i
+        else:
+            return -1
