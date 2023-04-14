@@ -49,11 +49,16 @@ class MapExercise:
         :return: Количество букв 'и' в названиях всех фильмов с рейтингом больше
         или равным заданному значению
         """
-        count_i = 0
 
-        for movie in list_of_movies:
-            if movie["rating_kinopoisk"] != "":
-                if float(movie["rating_kinopoisk"]) >= rating:
-                    count_i += movie["name"].count("и")
+        def count_i_in_name(movie: dict[str, str]) -> int:
+            return movie["name"].count("и")
 
-        return count_i
+        filtered_movies = filter(
+            lambda movie: movie["rating_kinopoisk"] != ""
+            and float(movie["rating_kinopoisk"]) >= rating,
+            list_of_movies,
+        )
+
+        count_i_list = map(count_i_in_name, filtered_movies)
+
+        return sum(count_i_list)
