@@ -14,7 +14,7 @@ class MapExercise:
         :return: Средний рейтинг фильмов у которых две или больше стран
         """
         films = 0
-        rating_kinopoisk_all = 0
+        rating_kinopoisk_all = 0.0
 
         ratings = list(
             map(
@@ -35,7 +35,6 @@ class MapExercise:
                 rating_kinopoisk_all += rating
 
         return rating_kinopoisk_all / films if films > 0 else 0.0
-
 
     @staticmethod
     def chars_count(list_of_movies: list[dict], rating: Union[float, int]) -> int:
