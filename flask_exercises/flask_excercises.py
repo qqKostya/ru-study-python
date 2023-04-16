@@ -1,6 +1,5 @@
 from flask import Flask, request
 
-
 class FlaskExercise:
     """
     Вы должны создать API для обработки CRUD запросов.
@@ -41,6 +40,9 @@ class FlaskExercise:
 
         @app.route("/user/<name>", methods=["GET"])
         def retrieve_user(name: str):
+            if name not in users:
+                return "", 404
+
             return {"data": f"My name is {name}"}, 200
 
         @app.route("/user/<name>", methods=["PATCH"])
@@ -51,5 +53,8 @@ class FlaskExercise:
 
         @app.route("/user/<name>", methods=["DELETE"])
         def delete_user(name: str):
+            if name not in users:
+                return "", 404
             users.pop(name)
             return "", 204
+
