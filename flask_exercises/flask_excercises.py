@@ -1,5 +1,6 @@
 from flask import Flask, request
 
+
 class FlaskExercise:
     """
     Вы должны создать API для обработки CRUD запросов.
@@ -31,11 +32,11 @@ class FlaskExercise:
 
         @app.route("/user", methods=["POST"])
         def create_user():
-            user_name = request.json.get("name")
-            if user_name is None:
+            data = request.json
+            if "name" not in data:
                 return {"errors": {"name": "This field is required"}}, 422
-
-            users[user_name] = {"age": 0}
+            user_name = data["name"]
+            users[user_name] = {}
             return {"data": f"User {user_name} is created!"}, 201
 
         @app.route("/user/<name>", methods=["GET"])
@@ -57,4 +58,3 @@ class FlaskExercise:
                 return "", 404
             users.pop(name)
             return "", 204
-
