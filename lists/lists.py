@@ -8,11 +8,16 @@ class ListExercise:
         :param input_list: Исходный список
         :return: Список с замененными элементами
         """
-        replaced_list = []
-
+        if not input_list:
+            return []
+        max_element = input_list[0]
         for i in input_list:
-            if i >= 0:
-                replaced_list.append(max(input_list))
+            if i > max_element:
+                max_element = i
+        replaced_list = []
+        for i in input_list:
+            if i > 0:
+                replaced_list.append(max_element)
             else:
                 replaced_list.append(i)
         return replaced_list
