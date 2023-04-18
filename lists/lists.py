@@ -32,10 +32,18 @@ class ListExercise:
         :param query: Искомый элемент
         :return: Номер элемента
         """
-        i = 0
-        while i < len(input_list) and input_list[i] != query:
-            i += 1
-        if i < len(input_list):
-            return i
-        else:
-            return -1
+        left = 0
+        right = len(input_list) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if input_list[mid] == query:
+                return mid
+
+            if input_list[mid] < query:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return -1
