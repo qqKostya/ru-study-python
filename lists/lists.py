@@ -32,18 +32,17 @@ class ListExercise:
         :param query: Искомый элемент
         :return: Номер элемента
         """
-        left = 0
-        right = len(input_list) - 1
 
-        while left <= right:
-            mid = (left + right) // 2
+        def binary_search(left: int, right: int) -> int:
+            if left > right:
+                return -1
 
-            if input_list[mid] == query:
-                return mid
-
-            if input_list[mid] < query:
-                left = mid + 1
+            middle = (left + right) // 2
+            if input_list[middle] == query:
+                return middle
+            elif input_list[middle] < query:
+                return binary_search(middle + 1, right)
             else:
-                right = mid - 1
+                return binary_search(left, middle - 1)
 
-        return -1
+        return binary_search(0, len(input_list) - 1)
