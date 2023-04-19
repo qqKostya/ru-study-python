@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 
 class FlaskExercise:
@@ -28,4 +28,36 @@ class FlaskExercise:
 
     @staticmethod
     def configure_routes(app: Flask) -> None:
-        pass
+        users = {}
+
+        @app.route("/user", methods=["POST"])
+        def create_user():
+            data = request.json
+            if "name" not in data:
+                return {"errors": {"name": "This field is required"}}, 422
+            user_name = data["name"]
+            users[user_name] = {}
+            return {"data": f"User {user_name} is created!"}, 201
+
+        @app.route("/user/<name>", methods=["GET"])
+        def retrieve_user(name: str):
+            if name not in users:
+                return "", 404
+
+            return {"data": f"My name is {name}"}, 200
+
+        @app.route("/user/<name>", methods=["PATCH"])
+        def update_user(name: str):
+            if name not in users:
+                return "", 404
+
+            new_name = request.json.get("name")
+            users[new_name] = users.pop(name)
+            return {"data": f"My name is {new_name}"}, 200
+
+        @app.route("/user/<name>", methods=["DELETE"])
+        def delete_user(name: str):
+            if name not in users:
+                return "", 404
+            users.pop(name)
+            return "", 204
