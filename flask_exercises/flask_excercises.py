@@ -48,6 +48,9 @@ class FlaskExercise:
 
         @app.route("/user/<name>", methods=["PATCH"])
         def update_user(name: str):
+            if name not in users:
+                return "", 404
+
             new_name = request.json.get("name")
             users[new_name] = users.pop(name)
             return {"data": f"My name is {new_name}"}, 200
