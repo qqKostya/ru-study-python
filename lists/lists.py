@@ -11,15 +11,15 @@ class ListExercise:
         if not input_list:
             return []
         max_element = input_list[0]
-        for i in input_list:
-            if i > max_element:
-                max_element = i
+        for element in input_list:
+            if element > max_element:
+                max_element = element
         replaced_list = []
-        for i in input_list:
-            if i > 0:
+        for element in input_list:
+            if element > 0:
                 replaced_list.append(max_element)
             else:
-                replaced_list.append(i)
+                replaced_list.append(element)
         return replaced_list
 
     @staticmethod
